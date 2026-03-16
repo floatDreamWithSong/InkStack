@@ -10,7 +10,7 @@ export const Route = createFileRoute("/")({
 function RouteComponent() {
 	return (
 		<>
-			<Header fixed />
+			<Header />
 			<Main>
 				<section className="mx-auto flex w-full max-w-4xl flex-col gap-6 rounded-2xl border border-border/70 bg-card/50 px-6 py-12 sm:px-10">
 					<p className="text-sm tracking-wide text-muted-foreground uppercase">
@@ -27,7 +27,6 @@ function RouteComponent() {
 						<Link
 							to="/blog"
 							className="inline-flex rounded-md border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
-							reloadDocument
 						>
 							进入博客
 						</Link>

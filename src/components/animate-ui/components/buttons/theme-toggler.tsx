@@ -41,7 +41,7 @@ type ThemeTogglerButtonProps = React.ComponentProps<"button"> &
 	};
 
 function ThemeTogglerButton({
-	variant = "outline",
+	variant = "ghost",
 	size = "default",
 	modes = ["light", "dark"],
 	duration = 400,

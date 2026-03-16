@@ -80,12 +80,11 @@ function BlogPostRouteComponent() {
 
 	return (
 		<>
-			<Header fixed />
+			<Header />
 			<Main className="mx-auto w-full max-w-4xl space-y-6 px-2 py-8 sm:px-4 sm:py-10">
 				<Link
 					to="/blog"
 					className="inline-flex items-center text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-					reloadDocument
 				>
 					返回文章列表
 				</Link>

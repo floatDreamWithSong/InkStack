@@ -11,6 +11,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/common/theme-provider";
 import { NavigationProgress } from "@/components/common/navigation-progress";
+import NotFoundError from "@/components/errors/not-found-error";
 
 export const Route = createRootRouteWithContext()({
 	head: () => ({
@@ -33,33 +34,9 @@ export const Route = createRootRouteWithContext()({
 			},
 		],
 	}),
-	component: RootComponent,
+	shellComponent: RootDocument,
+	notFoundComponent: NotFoundError,
 });
-
-function RootComponent() {
-	return (
-		<RootDocument>
-			<NavigationProgress />
-			<ThemeProvider attribute={"class"} defaultTheme="dark">
-				<TooltipProvider>
-					<Outlet />
-				</TooltipProvider>
-				<TanStackDevtools
-					config={{
-						position: "bottom-right",
-					}}
-					plugins={[
-						{
-							name: "Tanstack Router",
-							render: <TanStackRouterDevtoolsPanel />,
-						},
-					]}
-				/>
-				<Toaster position="top-right" />
-			</ThemeProvider>
-		</RootDocument>
-	);
-}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
@@ -68,7 +45,22 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body className="font-sans antialiased wrap-anywhere">
-				{children}
+				<NavigationProgress />
+				<ThemeProvider attribute={"class"} defaultTheme="dark">
+					<TooltipProvider>{children ?? <Outlet />}</TooltipProvider>
+					<TanStackDevtools
+						config={{
+							position: "bottom-left",
+						}}
+						plugins={[
+							{
+								name: "Tanstack Router",
+								render: <TanStackRouterDevtoolsPanel />,
+							},
+						]}
+					/>
+					<Toaster position="top-right" />
+				</ThemeProvider>
 				<Scripts />
 			</body>
 		</html>

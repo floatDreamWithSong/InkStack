@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import ArtPlum from "../common/art-plum";
 
 type MainProps = React.HTMLAttributes<HTMLElement> & {
 	fixed?: boolean;
@@ -6,7 +7,13 @@ type MainProps = React.HTMLAttributes<HTMLElement> & {
 	ref?: React.Ref<HTMLElement>;
 };
 
-export function Main({ fixed, className, fluid, ...props }: MainProps) {
+export function Main({
+	fixed,
+	className,
+	fluid,
+	children,
+	...props
+}: MainProps) {
 	return (
 		<main
 			data-layout={fixed ? "fixed" : "auto"}
@@ -22,6 +29,9 @@ export function Main({ fixed, className, fluid, ...props }: MainProps) {
 				className,
 			)}
 			{...props}
-		/>
+		>
+			<ArtPlum />
+			{children}
+		</main>
 	);
 }

@@ -1,17 +1,15 @@
-# Inkstack
+# InkStack
 
-A simple blog framework built with `Tanstack Start` and `Content Collections`.
+A mini blog template built with `Tanstack Start` and `Content Collections`.
 
-- 易于发布：use pre-rendering and static site generation(SSG) to improve the performance and SEO,  able to be deployed on any static file server.
-
-- 渐进式扩展：静态生成优先，但是也能通过tanstack start进一步扩展你的应用：SSR，ISR，等等。
+`Progressive Enhancement`: Static Site Generation(SSG) supported build for static file server deployment, while can be extended to deploy on NodeJS runtime for SSR thanks to Tanstack Start and Nitro.
 
 ## How to use
 
 clone the repository to your local machine
 
 ```bash
-git clone https://github.com/your-username/tanstack-markdown-blog.git
+git clone https://github.com/floatDreamWithSong/InkStack
 ```
 
 install dependencies
@@ -26,6 +24,22 @@ start the development server
 pnpm dev
 ```
 
+### 1. Build for Static File Server Deployment
+
+build for production
+
+```bash
+pnpm build:static
+```
+
+preview the production build
+
+```bash
+pnpm preview:static
+```
+
+### 2. Build for NodeJS Runtime Deployment
+
 build for production
 
 ```bash
@@ -38,16 +52,6 @@ preview the production build
 pnpm preview
 ```
 
-try preview your output with a static file server
+## Contributing
 
-```bash
-pnpm dlx http-server .output/public
-```
-
-try preview your output with server
-
-```bash
-pnpm preview
-```
-
-## Tech Stack
+pull requests are welcome!

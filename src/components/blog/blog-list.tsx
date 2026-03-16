@@ -36,7 +36,6 @@ export function BlogList({ posts }: BlogListProps) {
 									to="/blog/$"
 									params={{ _splat: routeKey }}
 									className="underline-offset-4 hover:underline"
-									reloadDocument
 								>
 									{post.title}
 								</Link>

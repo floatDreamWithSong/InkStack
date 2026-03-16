@@ -36,7 +36,6 @@ const getManualChunk = (id: string) => {
 
 const config = defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd(), "");
-	void env;
 	return {
 		plugins: [
 			contentCollections(),
@@ -55,7 +54,7 @@ const config = defineConfig(({ mode }) => {
 					crawlLinks: false,
 				},
 			}),
-			...(mode !== "test"
+			...(mode === "production" && env.STATIC_BUILD !== "1"
 				? [
 						nitro({
 							rollupConfig: {

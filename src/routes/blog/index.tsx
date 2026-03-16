@@ -45,7 +45,7 @@ function BlogIndexRouteComponent() {
 
 	return (
 		<>
-			<Header fixed />
+			<Header />
 			<Main className="space-y-8">
 				<section className="mx-auto w-full max-w-4xl space-y-3 px-2 sm:px-4">
 					<p className="text-sm tracking-wide text-muted-foreground uppercase">

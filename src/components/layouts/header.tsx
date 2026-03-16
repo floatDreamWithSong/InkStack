@@ -4,6 +4,8 @@ import { Separator } from "@/components/ui/separator";
 import { ThemeTogglerButton } from "../animate-ui/components/buttons/theme-toggler";
 import Logo from "../icons/logo";
 import GithubIcon from "../icons/github";
+import { Button } from "../ui/button";
+import { ArrowUpIcon } from "lucide-react";
 
 type HeaderProps = React.HTMLAttributes<HTMLElement> & {
 	fixed?: boolean;
@@ -50,14 +52,27 @@ export function Header({ className, fixed, children, ...props }: HeaderProps) {
 					<div>{children}</div>
 					<div className="flex items-center justify-end gap-3">
 						<GithubIcon
-							variant="outline"
+							variant="link"
 							size="icon"
-							link="https://github.com/your-username"
+							link="https://github.com/floatDreamWithSong/InkStack"
 						/>
 						<ThemeTogglerButton />
 					</div>
 				</div>
 			</div>
+			<Button
+				size={"icon-lg"}
+				variant={"outline"}
+				className={cn(
+					"fixed right-4 bottom-4 rounded-full transition-all duration-300",
+					offset < 50 ? "opacity-0 pointer-events-none" : "opacity-100",
+				)}
+				onClick={() => {
+					window.scrollTo({ top: 0, behavior: "smooth" });
+				}}
+			>
+				<ArrowUpIcon />
+			</Button>
 		</header>
 	);
 }

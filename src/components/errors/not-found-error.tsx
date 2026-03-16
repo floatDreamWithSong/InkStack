@@ -14,9 +14,7 @@ function NotFoundError() {
 				</p>
 				<div className="mt-6 flex gap-4">
 					<Button asChild>
-						<Link to="/" reloadDocument>
-							Go Home
-						</Link>
+						<Link to="/">Go Home</Link>
 					</Button>
 				</div>
 			</div>
