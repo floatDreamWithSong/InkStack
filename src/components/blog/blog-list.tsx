@@ -5,38 +5,16 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+import { formatPublishedDate } from "@/lib/date";
 import { Link } from "@tanstack/react-router";
 import type { Post } from "content-collections";
-import dayjs from "dayjs";
-import "dayjs/locale/zh-cn";
 import { Badge } from "../ui/badge";
 
 type BlogListProps = {
-	posts: Array<Post>;
+	posts: Array<Omit<Post, "content">>;
 };
 
-function formatPublishedDate(publishedAt?: string) {
-	if (!publishedAt) return null;
-	const timestamp = Date.parse(publishedAt);
-	if (Number.isNaN(timestamp)) return publishedAt;
-
-	return dayjs(timestamp).locale("zh-cn").format("YYYY年MMMMD日");
-}
-
 export function BlogList({ posts }: BlogListProps) {
-	if (posts.length === 0) {
-		return (
-			<Card className="border-dashed py-8">
-				<CardHeader className="space-y-2">
-					<CardTitle className="text-lg">还没有可展示的文章</CardTitle>
-					<CardDescription>
-						请在博客内容目录中新增 Markdown 文件后刷新页面。
-					</CardDescription>
-				</CardHeader>
-			</Card>
-		);
-	}
-
 	return (
 		<div className="space-y-4">
 			{posts.map((post) => {

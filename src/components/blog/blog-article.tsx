@@ -2,23 +2,12 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import type { Post } from "content-collections";
+import { formatPublishedDate } from "@/lib/date";
 import { Badge } from "../ui/badge";
 
 type BlogArticleProps = {
 	post: Post;
 };
-
-function formatPublishedDate(publishedAt?: string) {
-	if (!publishedAt) return null;
-	const timestamp = Date.parse(publishedAt);
-	if (Number.isNaN(timestamp)) return publishedAt;
-
-	return new Intl.DateTimeFormat("zh-CN", {
-		year: "numeric",
-		month: "long",
-		day: "numeric",
-	}).format(new Date(timestamp));
-}
 
 export function BlogArticle({ post }: BlogArticleProps) {
 	const publishedDate = formatPublishedDate(post.date);

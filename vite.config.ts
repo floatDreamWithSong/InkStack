@@ -36,6 +36,7 @@ const getManualChunk = (id: string) => {
 
 const config = defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd(), "");
+	void env;
 	return {
 		plugins: [
 			contentCollections(),
@@ -54,7 +55,23 @@ const config = defineConfig(({ mode }) => {
 					crawlLinks: false,
 				},
 			}),
-			...(env.VERCEL === "1" ? [nitro()] : []),
+			...(mode !== "test"
+				? [
+						nitro({
+							rollupConfig: {
+								onwarn(warning, warn) {
+									if (
+										warning.message.includes(`"use client"`) &&
+										warning.message.includes(`was ignored.`)
+									) {
+										return;
+									}
+									warn(warning);
+								},
+							},
+						}),
+					]
+				: []),
 			codeInspectorPlugin({
 				bundler: "vite",
 				editor: "cursor",

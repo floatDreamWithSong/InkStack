@@ -11,7 +11,10 @@ const blogRouteInputSchema = z.object({
 export const fetchBlogPostList = createServerFn({ method: "GET" })
 	.middleware([staticFunctionMiddleware])
 	.handler(() => {
-		return allPosts;
+		return allPosts.map((post) => ({
+			...post,
+			content: null,
+		}));
 	});
 
 export const fetchBlogPost = createServerFn({ method: "GET" })

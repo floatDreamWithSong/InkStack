@@ -41,9 +41,13 @@ pnpm preview
 try preview your output with a static file server
 
 ```bash
-pnpm dlx serve ./dist/client
-# OR
-pnpm dlx http-server ./dist/client
+pnpm dlx http-server .output/public
+```
+
+try preview your output with server
+
+```bash
+pnpm preview
 ```
 
 ## Tech Stack

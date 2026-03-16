@@ -19,7 +19,8 @@
 			"!**/src/components/ui",
 			"!**/src/components/animate-ui",
 			"!dist/**/*",
-			"!.vercel/**/*"
+			"!.vercel/**/*",
+			"!.output/**/*"
 		]
 	},
 	"formatter": {

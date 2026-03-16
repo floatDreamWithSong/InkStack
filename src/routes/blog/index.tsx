@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 import { BlogList } from "@/components/blog/blog-list";
 import { Header } from "@/components/layouts/header";
 import { Main } from "@/components/layouts/main";
@@ -6,7 +6,13 @@ import { fetchBlogPostList } from "@/server/server-fns";
 
 export const Route = createFileRoute("/blog/")({
 	loader: async () => {
-		return fetchBlogPostList();
+		const list = await fetchBlogPostList().catch((error) =>
+			console.error(error),
+		);
+		if (!list) {
+			throw notFound();
+		}
+		return list;
 	},
 	head: () => ({
 		meta: [
