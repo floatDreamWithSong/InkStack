@@ -1,0 +1,22 @@
+{
+  "projectName": "smart-x-ray",
+  "mode": "file-router",
+  "typescript": true,
+  "packageManager": "pnpm",
+  "includeExamples": false,
+  "tailwind": true,
+  "addOnOptions": {},
+  "envVarValues": {},
+  "git": true,
+  "routerOnly": false,
+  "version": 1,
+  "framework": "react",
+  "chosenAddOns": [
+    "biome",
+    "tanstack-query",
+    "table",
+    "t3env",
+    "form",
+    "compiler"
+  ]
+}
