@@ -18,7 +18,8 @@
 			"!**/src/styles",
 			"!**/src/components/ui",
 			"!**/src/components/animate-ui",
-			"!dist/**/*"
+			"!dist/**/*",
+			"!.vercel/**/*"
 		]
 	},
 	"formatter": {

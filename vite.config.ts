@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import { devtools } from "@tanstack/devtools-vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import { codeInspectorPlugin } from "code-inspector-plugin";
@@ -8,6 +8,7 @@ import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { getAllBlogPrerenderPaths } from "./src/server/content.server";
 import path from "node:path";
+import { nitro } from "nitro/vite";
 
 const chunkGroups: Array<[string, string[]]> = [];
 
@@ -33,47 +34,51 @@ const getManualChunk = (id: string) => {
 	return undefined;
 };
 
-const config = defineConfig(() => ({
-	plugins: [
-		contentCollections(),
-		devtools(),
-		tailwindcss(),
-		tsconfigPaths({ projects: ["./tsconfig.json"] }),
-		tanstackStart({
-			pages: [
-				...prerenderPages,
-				...getAllBlogPrerenderPaths().map((path) => ({
-					path,
-				})),
-			],
-			prerender: {
-				enabled: true,
-				crawlLinks: false,
-			},
-		}),
-		codeInspectorPlugin({
-			bundler: "vite",
-			editor: "cursor",
-			hotKeys: ["ctrlKey", "altKey"],
-		}),
-		viteReact({
-			babel: {
-				plugins: ["babel-plugin-react-compiler"],
-			},
-		}),
-	],
-	build: {
-		rollupOptions: {
-			output: {
-				manualChunks: getManualChunk,
+const config = defineConfig(({ mode }) => {
+	const env = loadEnv(mode, process.cwd(), "");
+	return {
+		plugins: [
+			contentCollections(),
+			devtools(),
+			tailwindcss(),
+			tsconfigPaths({ projects: ["./tsconfig.json"] }),
+			tanstackStart({
+				pages: [
+					...prerenderPages,
+					...getAllBlogPrerenderPaths().map((path) => ({
+						path,
+					})),
+				],
+				prerender: {
+					enabled: true,
+					crawlLinks: false,
+				},
+			}),
+			...(env.VERCEL === "1" ? [nitro()] : []),
+			codeInspectorPlugin({
+				bundler: "vite",
+				editor: "cursor",
+				hotKeys: ["ctrlKey", "altKey"],
+			}),
+			viteReact({
+				babel: {
+					plugins: ["babel-plugin-react-compiler"],
+				},
+			}),
+		],
+		build: {
+			rollupOptions: {
+				output: {
+					manualChunks: getManualChunk,
+				},
 			},
 		},
-	},
-	resolve: {
-		alias: {
-			"blog-config": path.resolve(__dirname, "blog.config.json"),
+		resolve: {
+			alias: {
+				"blog-config": path.resolve(__dirname, "blog.config.json"),
+			},
 		},
-	},
-}));
+	};
+});
 
 export default config;
