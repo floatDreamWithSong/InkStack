@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  OUTPUT_PATH: .output/public
+  OUTPUT_PATH: ./dist/client
 
 jobs:
   deploy:
@@ -37,7 +37,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: pnpm build
+        run: pnpm build:static
 
       - name: Create .nojekyll
         run: touch ${{ env.OUTPUT_PATH }}/.nojekyll
