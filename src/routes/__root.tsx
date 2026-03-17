@@ -43,10 +43,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 		<html lang="en" suppressHydrationWarning>
 			<head>
 				<HeadContent />
+				<link rel="manifest" href="/manifest.json" />
+				<link rel="icon" href="/favicon.svg" />
 			</head>
 			<body className="font-sans antialiased wrap-anywhere">
 				<NavigationProgress />
-				<ThemeProvider attribute={"class"} defaultTheme="dark">
+				<ThemeProvider attribute={"class"} defaultTheme="light">
 					<TooltipProvider>{children ?? <Outlet />}</TooltipProvider>
 					<TanStackDevtools
 						config={{

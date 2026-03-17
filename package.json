@@ -75,6 +75,7 @@
     "cross-env": "^10.1.0",
     "jsdom": "^27.0.0",
     "lefthook": "^2.1.4",
+    "sass-embedded": "^1.98.0",
     "serve": "^14.2.6",
     "shadcn": "^4.0.6",
     "tinyglobby": "^0.2.15",

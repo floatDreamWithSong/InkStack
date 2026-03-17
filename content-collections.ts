@@ -20,6 +20,7 @@ const posts = defineCollection({
 		content: z.string().default("no content"),
 		date: z.string().default(dayjs().format("YYYY-MM-DD")),
 		tags: z.array(z.string()).default([]),
+		estimatedTime: z.number().optional(),
 	}),
 	transform: (data) => {
 		const normalizedFilePath = toPosixPath(data._meta.filePath);
@@ -30,6 +31,9 @@ const posts = defineCollection({
 		}
 		if (data.summary === void 0) {
 			data.summary = createExcerpt(data.content, 180);
+		}
+		if (data.estimatedTime === void 0) {
+			data.estimatedTime = Math.ceil(data.content.split(" ").length / 250);
 		}
 		data._meta.filePath = normalizedFilePath;
 		data._meta.path = routeKey;
