@@ -11,6 +11,7 @@ import { nitro } from "nitro/vite";
 import { globSync } from "tinyglobby";
 import blogConfig from "./blog.config.json" with { type: "json" };
 import { styleText } from "node:util";
+import fs from "node:fs/promises";
 
 const prerenderPages = ["/404"].map((path) => ({
 	path,
@@ -61,9 +62,11 @@ const config = defineConfig(({ mode }) => {
 					enabled: true,
 					crawlLinks: false,
 					onSuccess: async () => {
-						const fs = await import("node:fs/promises");
 						const src = path.resolve("dist/client/__tsr");
-						const dest = path.resolve(".output/public/__tsr");
+						const dest =
+							process.env.VERCEL === "1"
+								? path.resolve(".vercel/output/static/__tsr")
+								: path.resolve(".output/public/__tsr");
 						try {
 							await fs.cp(src, dest, { recursive: true });
 							console.log("[fix] Copied __tsr after prerender");
