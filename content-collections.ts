@@ -4,7 +4,7 @@ import {
 	deriveTitleFromRelativePath,
 	toPosixPath,
 	toRouteKeyFromRelativeMarkdownPath,
-} from "./src/server/path";
+} from "./src/lib/path";
 import blogConfig from "blog-config" with { type: "json" };
 import z from "zod";
 import dayjs from "dayjs";
@@ -12,7 +12,7 @@ import dayjs from "dayjs";
 const posts = defineCollection({
 	name: "posts",
 	directory: blogConfig.contentDir,
-	include: "**/*.md",
+	include: blogConfig.pattern,
 	schema: z.object({
 		title: z.string().optional(),
 		author: z.string().default("your name"),

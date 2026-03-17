@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { normalizeRouteKey } from "./path";
+import { normalizeRouteKey } from "../lib/path";
 import { staticFunctionMiddleware } from "@tanstack/start-static-server-functions";
 import { allPosts } from "content-collections";
 

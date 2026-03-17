@@ -6,11 +6,11 @@ import viteReact from "@vitejs/plugin-react";
 import contentCollections from "@content-collections/vite";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { getAllBlogPrerenderPaths } from "./src/server/content.server";
-import path from "node:path";
+import path from "node:path/posix";
 import { nitro } from "nitro/vite";
-
-const chunkGroups: Array<[string, string[]]> = [];
+import { globSync } from "tinyglobby";
+import blogConfig from "./blog.config.json" with { type: "json" };
+import { styleText } from "node:util";
 
 const prerenderPages = ["/404"].map((path) => ({
 	path,
@@ -20,18 +20,23 @@ const prerenderPages = ["/404"].map((path) => ({
 	},
 }));
 
-const getManualChunk = (id: string) => {
-	const normalizedId = id.replace(/\\/g, "/");
-	if (!normalizedId.includes("node_modules")) return undefined;
-
-	for (const [chunkName, packages] of chunkGroups) {
-		if (
-			packages.some((pkg) => normalizedId.includes(`/node_modules/${pkg}/`))
-		) {
-			return chunkName;
-		}
-	}
-	return undefined;
+const getCollectedMdPaths = () => {
+	console.log(styleText("cyan", "cwd:"), process.cwd());
+	console.log(
+		styleText("cyan", "blogConfig.contentDir:"),
+		blogConfig.contentDir,
+	);
+	console.log(styleText("cyan", "blogConfig.pattern:"), blogConfig.pattern);
+	const collectedMdPaths = globSync(
+		path.join(blogConfig.contentDir, blogConfig.pattern),
+	).map((path) => path.slice(0, path.lastIndexOf(".")));
+	console.log(styleText("cyan", "total md files:"), collectedMdPaths.length);
+	console.log(
+		styleText("cyan", "collectedMdPaths:"),
+		collectedMdPaths.slice(0, 3),
+		"...",
+	);
+	return collectedMdPaths;
 };
 
 const config = defineConfig(({ mode }) => {
@@ -43,12 +48,15 @@ const config = defineConfig(({ mode }) => {
 			tailwindcss(),
 			tsconfigPaths({ projects: ["./tsconfig.json"] }),
 			tanstackStart({
-				pages: [
-					...prerenderPages,
-					...getAllBlogPrerenderPaths().map((path) => ({
-						path,
-					})),
-				],
+				pages:
+					mode === "production"
+						? [
+								...prerenderPages,
+								...getCollectedMdPaths().map((path) => ({
+									path,
+								})),
+							]
+						: void 0,
 				prerender: {
 					enabled: true,
 					crawlLinks: false,
@@ -68,6 +76,13 @@ const config = defineConfig(({ mode }) => {
 									warn(warning);
 								},
 							},
+							publicAssets: [
+								{
+									dir: "dist/client/__tsr",
+									baseURL: "/__tsr",
+									maxAge: 0,
+								},
+							],
 						}),
 					]
 				: []),
@@ -85,16 +100,27 @@ const config = defineConfig(({ mode }) => {
 		build: {
 			rollupOptions: {
 				output: {
-					manualChunks: getManualChunk,
+					manualChunks: (id: string) => {
+						const normalizedId = id.replace(/\\/g, "/");
+						if (!normalizedId.includes("node_modules")) return undefined;
+
+						for (const [chunkName, packages] of chunkGroups) {
+							if (
+								packages.some((pkg) =>
+									normalizedId.includes(`/node_modules/${pkg}/`),
+								)
+							) {
+								return chunkName;
+							}
+						}
+						return undefined;
+					},
 				},
-			},
-		},
-		resolve: {
-			alias: {
-				"blog-config": path.resolve(__dirname, "blog.config.json"),
 			},
 		},
 	};
 });
+
+const chunkGroups: Array<[string, string[]]> = [];
 
 export default config;
