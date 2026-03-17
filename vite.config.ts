@@ -60,6 +60,17 @@ const config = defineConfig(({ mode }) => {
 				prerender: {
 					enabled: true,
 					crawlLinks: false,
+					onSuccess: async () => {
+						const fs = await import("node:fs/promises");
+						const src = path.resolve("dist/client/__tsr");
+						const dest = path.resolve(".output/public/__tsr");
+						try {
+							await fs.cp(src, dest, { recursive: true });
+							console.log("[fix] Copied __tsr after prerender");
+						} catch {
+							console.warn("[fix] __tsr not found");
+						}
+					},
 				},
 			}),
 			...(mode === "production" && env.STATIC_BUILD !== "1"
