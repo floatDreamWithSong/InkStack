@@ -1,4 +1,6 @@
 {
 	"contentDir": "blog",
-	"pattern": "**/*.md"
+	"pattern": "**/*.md",
+	"assetsDir": "blog",
+	"assetsPattern": "**/*.{png,jpg,jpeg,gif,svg,webp}"
 }

@@ -32,7 +32,7 @@ build for production
 pnpm build:static
 ```
 
-preview the production build
+preview the production build (using serve)
 
 ```bash
 pnpm preview:static

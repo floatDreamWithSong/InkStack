@@ -1,5 +1,5 @@
 ---
-title: A Chameleon Critiqued Our Color Schemes
+title: Test1
 summary: A hilarious account of how ContentCrafter's office dynamics were turned upside down when a chameleon wandered into their design studio and started changing colors in apparent response to their content presentations, leading to an unexpected breakthrough in their visual branding strategy.
 date: 2024-07-15
 author: Morgan Blackwood
@@ -7,6 +7,8 @@ tags: [chameleon, color, design, content, validation]
 ---
 
 It started as any ordinary Monday at ContentCrafter Inc., with our team huddled around steaming cups of coffee, discussing the week's projects. Little did we know that our next big breakthrough would come from an unexpected art critic who literally changed colors based on our design choices.
+
+![test-img-1](./my/image.png)
 
 ## The Unexpected Guest
 

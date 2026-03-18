@@ -6,6 +6,7 @@ import viteReact from "@vitejs/plugin-react";
 import contentCollections from "@content-collections/vite";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 import path from "node:path/posix";
 import { nitro } from "nitro/vite";
 import { globSync } from "tinyglobby";
@@ -48,6 +49,15 @@ const config = defineConfig(({ mode }) => {
 			devtools(),
 			tailwindcss(),
 			tsconfigPaths({ projects: ["./tsconfig.json"] }),
+			viteStaticCopy({
+				targets: [
+					{
+						src: path.join(blogConfig.assetsDir, blogConfig.assetsPattern),
+						dest: "./client",
+					},
+				],
+				structured: true,
+			}),
 			tanstackStart({
 				pages:
 					mode === "production"
@@ -95,6 +105,12 @@ const config = defineConfig(({ mode }) => {
 									dir: "dist/client/__tsr",
 									baseURL: "/__tsr",
 									maxAge: 0,
+								},
+								{
+									dir: path.join("dist/client", blogConfig.assetsDir),
+									baseURL: path.join("/", blogConfig.assetsDir),
+									maxAge: 0,
+									fallthrough: true,
 								},
 							],
 						}),
