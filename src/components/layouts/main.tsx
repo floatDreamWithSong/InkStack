@@ -1,5 +1,8 @@
 import { cn } from "@/lib/utils";
 import ArtPlum from "../common/art-plum";
+import { useRef } from "react";
+import ArtDot from "../common/art-dot";
+import { ClientOnly } from "@tanstack/react-router";
 
 type MainProps = React.HTMLAttributes<HTMLElement> & {
 	fixed?: boolean;
@@ -30,8 +33,15 @@ export function Main({
 			)}
 			{...props}
 		>
-			<ArtPlum />
+			<ClientOnly>
+				<RandomArtComponent />
+			</ClientOnly>
 			{children}
 		</main>
 	);
+}
+
+function RandomArtComponent() {
+	const useDot = useRef(Math.random() > 0.5);
+	return useDot.current ? <ArtDot /> : <ArtPlum />;
 }
