@@ -1,9 +1,4 @@
-const BLOG_DATE_FORMATTER = new Intl.DateTimeFormat("zh-CN", {
-	year: "numeric",
-	month: "long",
-	day: "numeric",
-	timeZone: "UTC",
-});
+import dayjs from "dayjs";
 
 export function formatPublishedDate(publishedAt?: string) {
 	if (!publishedAt) return null;
@@ -13,5 +8,5 @@ export function formatPublishedDate(publishedAt?: string) {
 		return publishedAt;
 	}
 
-	return BLOG_DATE_FORMATTER.format(new Date(timestamp));
+	return dayjs(timestamp).format("YYYY-MM-DD");
 }
