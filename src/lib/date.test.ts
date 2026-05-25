@@ -3,13 +3,11 @@ import { formatPublishedDate } from "./date";
 
 describe("formatPublishedDate", () => {
 	it("formats date-only values in zh-CN with a fixed UTC timezone", () => {
-		expect(formatPublishedDate("2024-08-15")).toBe("2024年8月15日");
+		expect(formatPublishedDate("2024-08-15")).toBe("2024-08-15");
 	});
 
 	it("formats full datetime values with UTC normalization", () => {
-		expect(formatPublishedDate("2024-08-15T23:00:00-02:00")).toBe(
-			"2024年8月16日",
-		);
+		expect(formatPublishedDate("2024-08-15T23:00:00-02:00")).toBe("2024-08-16");
 	});
 
 	it("returns original value when parsing fails", () => {

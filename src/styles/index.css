@@ -4,6 +4,9 @@
 @import "./theme.css";
 @import "./blog.css";
 @import "./scrollbar.css";
+@source "../../node_modules/streamdown/dist/*.js";
+@source "../../node_modules/@streamdown/code/dist/*.js";
+
 
 @custom-variant dark (&:is(.dark *));
 

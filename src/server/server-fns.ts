@@ -2,7 +2,16 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { normalizeRouteKey } from "../lib/path";
 import { staticFunctionMiddleware } from "@tanstack/start-static-server-functions";
-import { allPosts } from "content-collections";
+import { allPosts as OriginalAllPosts } from "content-collections";
+
+const allPosts = OriginalAllPosts.sort((a, b) => {
+	return new Date(b.date).getTime() - new Date(a.date).getTime();
+});
+
+const allPostsWithoutContent = allPosts.map((post) => ({
+	...post,
+	content: null,
+}));
 
 const blogRouteInputSchema = z.object({
 	routeKey: z.string().min(1),
@@ -11,10 +20,7 @@ const blogRouteInputSchema = z.object({
 export const fetchBlogPostList = createServerFn({ method: "GET" })
 	.middleware([staticFunctionMiddleware])
 	.handler(() => {
-		return allPosts.map((post) => ({
-			...post,
-			content: null,
-		}));
+		return allPostsWithoutContent;
 	});
 
 export const fetchBlogPost = createServerFn({ method: "GET" })

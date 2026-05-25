@@ -7,6 +7,7 @@ import GithubIcon from "../icons/github";
 import { Button } from "../ui/button";
 import { ArrowUpIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { authorName } from "@/lib/const";
 
 type HeaderProps = React.HTMLAttributes<HTMLElement> & {
 	fixed?: boolean;
@@ -18,7 +19,7 @@ export function Header({
 	className,
 	fixed,
 	children,
-	title = "Daydreamer",
+	title = authorName,
 	...props
 }: HeaderProps) {
 	const [offset, setOffset] = useState(0);

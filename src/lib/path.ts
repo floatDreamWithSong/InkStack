@@ -67,7 +67,7 @@ export function deriveTitleFromRelativePath(relativeMarkdownPath: string) {
 	return rawTitle.replace(/[-_]/g, " ").trim() || "Untitled";
 }
 
-export function createExcerpt(markdownContent: string, maxLength = 180) {
+export function createExcerpt(markdownContent: string, maxLength: number) {
 	const plainText = markdownContent
 		.replace(MARKDOWN_FENCE_RE, " ")
 		.replace(MARKDOWN_INLINE_CODE_RE, " ")

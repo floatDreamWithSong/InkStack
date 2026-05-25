@@ -12,6 +12,9 @@ import {
 import { formatPublishedDate } from "@/lib/date";
 import { Link } from "@tanstack/react-router";
 import { Badge } from "@/components/ui/badge";
+import Paragraph from "@/components/common/paragraph";
+import { Clock1Icon } from "lucide-react";
+import { authorName } from "@/lib/const";
 
 export const Route = createFileRoute("/blog/")({
 	loader: async () => {
@@ -26,11 +29,11 @@ export const Route = createFileRoute("/blog/")({
 	head: () => ({
 		meta: [
 			{
-				title: "博客目录 | Daydreamer's Blog",
+				title: `博客目录 | ${authorName}'s Blog`,
 			},
 			{
 				property: "og:title",
-				content: "博客目录 | Daydreamer's Blog",
+				content: `博客目录 | ${authorName}'s Blog`,
 			},
 			{
 				property: "og:type",
@@ -78,19 +81,26 @@ function BlogIndexRouteComponent() {
 												{post.title}
 											</Link>
 										</CardTitle>
-										<CardDescription className="line-clamp-1 text-sm leading-6">
-											{post.summary}
+										<CardDescription className="line-clamp-3 sm:line-clamp-2 text-lg leading-6">
+											<Paragraph>{post.summary}</Paragraph>
 										</CardDescription>
-										<CardFooter className="justify-between flex px-0">
-											<div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
-												{publishedDate ? <span>{publishedDate}</span> : null}
-												{post.estimatedTime ? (
-													<span>{post.estimatedTime} min</span>
-												) : null}
+										<CardFooter className="flex px-0 gap-8">
+											<div className="flex flex-wrap items-center gap-6 text-base text-secondary-foreground">
+												{publishedDate && <span>{publishedDate}</span>}
+												{post.estimatedTime && (
+													<span className="flex items-center gap-1">
+														<Clock1Icon className="inline size-4" />
+														{post.estimatedTime} min
+													</span>
+												)}
 											</div>
 											<div className="flex flex-wrap items-center gap-2">
-												{post.tags.map((tag) => (
-													<Badge key={tag} variant="outline">
+												{post.tags.slice(0, 5).map((tag) => (
+													<Badge
+														key={tag}
+														variant="outline"
+														className="backdrop-blur-md tracking-wide"
+													>
 														{tag}
 													</Badge>
 												))}

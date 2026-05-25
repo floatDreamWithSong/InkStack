@@ -155,9 +155,7 @@ const ArtDot = () => {
 					texture: true,
 					textureSource: true,
 				});
-			} catch (error) {
-				console.error(error);
-			}
+			} catch (error) {}
 		};
 	}, []);
 

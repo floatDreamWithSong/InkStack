@@ -30,7 +30,7 @@ const posts = defineCollection({
 			data.title = deriveTitleFromRelativePath(normalizedFilePath);
 		}
 		if (data.summary === void 0) {
-			data.summary = createExcerpt(data.content, 180);
+			data.summary = createExcerpt(data.content, 220);
 		}
 		if (data.estimatedTime === void 0) {
 			data.estimatedTime = Math.ceil(data.content.split(" ").length / 250);

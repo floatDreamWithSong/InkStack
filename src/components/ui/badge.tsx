@@ -41,7 +41,7 @@ function Badge({
     <Comp
       data-slot="badge"
       data-variant={variant}
-      className={cn(badgeVariants({ variant }), className)}
+      className={cn(badgeVariants({ variant }), "max-w-20 overflow-hidden text-ellipsis whitespace-nowrap line-clamp-1", className)}
       {...props}
     />
   )

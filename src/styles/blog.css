@@ -90,4 +90,36 @@
 	.blog-content th {
 		@apply bg-muted/70 font-semibold;
 	}
+
+	.blog-toc-sidebar {
+		@apply border-border/70 border-l pl-4 lg:sticky lg:top-20;
+	}
+
+	.blog-toc {
+		@apply max-h-[calc(100vh-7rem)] overflow-y-auto pr-2 text-sm;
+	}
+
+	.blog-toc-list {
+		@apply m-0 list-none p-0;
+	}
+
+	.blog-toc-list .blog-toc-list {
+		@apply mt-1 pl-4;
+	}
+
+	.blog-toc-list-item {
+		@apply my-1;
+	}
+
+	.blog-toc a {
+		@apply block rounded-sm py-1 text-muted-foreground transition-colors hover:text-foreground;
+	}
+
+	.blog-toc a.is-active-link {
+		@apply font-medium text-foreground;
+	}
+
+	.blog-toc-list-item.is-active-li > a {
+		@apply text-primary;
+	}
 }
