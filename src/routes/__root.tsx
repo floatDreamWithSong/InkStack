@@ -12,6 +12,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/common/theme-provider";
 import { NavigationProgress } from "@/components/common/navigation-progress";
 import NotFoundError from "@/components/errors/not-found-error";
+import { authorName } from "@/lib/const";
 
 export const Route = createRootRouteWithContext()({
 	head: () => ({
@@ -24,7 +25,7 @@ export const Route = createRootRouteWithContext()({
 				content: "width=device-width, initial-scale=1",
 			},
 			{
-				title: "TanStack Markdown Blog",
+				title: `${authorName}'s Blog`,
 			},
 		],
 		links: [
