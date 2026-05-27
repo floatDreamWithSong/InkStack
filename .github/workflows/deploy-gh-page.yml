@@ -15,8 +15,8 @@ concurrency:
 
 env:
   OUTPUT_PATH: ./dist/client
-  TARGET_REPO: https://github.com/floatDreamWithSong/floatDreamWithSong.github.io.git
-  HAS_PAGES_TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
+  TARGET_REPO: floatDreamWithSong/floatDreamWithSong.github.io
+  HAS_PAGES_TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN != '' }}
 
 jobs:
   deploy:
@@ -53,7 +53,7 @@ jobs:
 
       # optional: if you want deploy gh page in another repository...
       - name: Deploy to special repository
-        if: ${{ env.HAS_PAGES_TOKEN != '' }}
+        if: env.HAS_PAGES_TOKEN == 'true'
         uses: peaceiris/actions-gh-pages@v4
         with:
           personal_token: ${{ secrets.PAGES_DEPLOY_TOKEN }}
