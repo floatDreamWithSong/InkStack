@@ -28,30 +28,28 @@ function RouteComponent() {
 						lies. I am enthusiastic about building tools that help myself and
 						others to be more productive and enjoy the process of crafting.
 					</Paragraph>
-					<Paragraph>
-						Find me on
-						<div className="[&>a]:font-manrope">
-							<Button asChild variant="link">
-								<a
-									href="https://github.com/floatDreamWithSong"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<IconBrandGithub className="inline size-4" /> GitHub
-								</a>
-							</Button>
-							<Button asChild variant="link">
-								<a
-									href="https://space.bilibili.com/169466687"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<IconBrandBilibili className="inline size-4 stroke-blue-400" />{" "}
-									Bilibili
-								</a>
-							</Button>
-						</div>
-					</Paragraph>
+					<Paragraph>Find me on</Paragraph>
+					<div className="[&>a]:font-manrope">
+						<Button asChild variant="link">
+							<a
+								href="https://github.com/floatDreamWithSong"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<IconBrandGithub className="inline size-4" /> GitHub
+							</a>
+						</Button>
+						<Button asChild variant="link">
+							<a
+								href="https://space.bilibili.com/169466687"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<IconBrandBilibili className="inline size-4 stroke-blue-400" />{" "}
+								Bilibili
+							</a>
+						</Button>
+					</div>
 					<Paragraph>
 						Or mail me at{" "}
 						<span className="font-mono">hi@daydreamer.net.cn</span>
