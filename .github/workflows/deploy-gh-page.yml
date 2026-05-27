@@ -60,4 +60,4 @@ jobs:
           external_repository: ${{ env.TARGET_REPO }}
           publish_branch: main
           publish_dir: ${{ env.OUTPUT_PATH }}
-          force_orphan: true
+          keep_files: false
