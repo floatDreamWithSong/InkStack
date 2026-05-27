@@ -15,10 +15,10 @@ concurrency:
 
 env:
   OUTPUT_PATH: ./dist/client
+  TARGET_REPO: https://github.com/floatDreamWithSong/floatDreamWithSong.github.io.git
 
 jobs:
   deploy:
-    # if: github.event.repository.name == format('{0}.github.io', github.repository_owner)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -42,8 +42,21 @@ jobs:
       - name: Create .nojekyll
         run: touch ${{ env.OUTPUT_PATH }}/.nojekyll
 
+      # optional: if you want deploy gh page in the same repository...
       - name: Deploy ${{ env.OUTPUT_PATH }} to gh-pages
+        if: github.event.repository.name == format('{0}.github.io', github.repository_owner)
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: ${{ env.OUTPUT_PATH }}
+
+      # optional: if you want deploy gh page in another repository...
+      - name: Deploy to special repository
+        if: ${{ secrets.PAGES_DEPLOY_TOKEN != '' }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.PAGES_DEPLOY_TOKEN }}
+          external_repository: ${{ env.TARGET_REPO }}
+          publish_branch: main
+          publish_dir: ${{ env.OUTPUT_PATH }}
+          force_orphan: true
