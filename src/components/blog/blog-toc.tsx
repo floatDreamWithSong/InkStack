@@ -53,7 +53,7 @@ export default function BlogToc({ className, ...props }: BlogTocProps) {
 			{...props}
 		>
 			<nav
-				className={cn(jsBlogTocClassName, "blog-toc")}
+				className={cn(jsBlogTocClassName, "blog-toc scrollbar-hidden")}
 				aria-label="Table of Contents"
 			/>
 		</aside>

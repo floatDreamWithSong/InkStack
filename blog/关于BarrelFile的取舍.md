@@ -1,7 +1,7 @@
 ---
 date: 2026-03-30
 author: Hanjie Deng
-tags: ["🤔", "模块化"]
+tags: ["note", "模块化"]
 ---
 
 Barrel File 通常指的是那种专门用来集中导出的文件，比如在一个目录下写一个 `index.ts`，然后把其他模块统一 `export` 出去：
